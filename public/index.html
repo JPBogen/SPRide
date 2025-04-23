@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--
+    ### LEGAL DISCLAIMER ###    
+
+    Copyright (c) 2025 Dr. JAN PATRICK BOGEN.
+    This software is the intellectual property of Dr. JAN PATRICK BOGEN.
+    
+    Disclaimer of Warranty: This software is provided "as is," without warranty of any kind, express or implied,
+    including but not limited to the warranties of merchantability, fitness for a particular purpose, and non-infringement.
+    In no event shall the author or copyright holder be liable for any claim, damages, or other liability, whether in an
+    action of contract, tort, or otherwise, arising from, out of, or in connection with the software or the use or other
+    dealings in the software.
+
+    The Software uses Chart.js 2.9.4 released under the MIT License.
+    -->
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SPRide - SPR Interactive Data Engine">
+    <meta name="author" content="Dr. Jan P. Bogen">
+    <meta name="keywords" content="SPR, BLI, Affinity, Simulation, PPI">
+    <meta name="robots" content="index, follow">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta property="og:title" content="SPRide - SPR Interactive Data Engine">
+    <meta property="og:description" content="Simulate SPR sensorgrams and calculate binding properties using kinetic parameters.">
+    <!--TO BE DONE--><meta property="og:image" content="OpenGraphTag/SPRide Screenshot.png">
+    <!--TO BE DONE--><meta property="og:url" content="https://JPBogen.github.io">
+
+    <link rel="icon" type="image/png" href="Favicon/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="Favicon//favicon.svg" />
+    <link rel="shortcut icon" href="Favicon//favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="Favicon//apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="SPRide" />
+    <link rel="manifest" href="Favicon/site.webmanifest" />
+
+    <title>SPRide - SPR Interactive Data Engine</title>
+
+    <link rel="stylesheet" href="styles.css"> 
+    <link rel="stylesheet" href="gridstyle.css"> 
+    <link rel="stylesheet" href="MediaQuery.css"> 
+    
+</head>
+<body>
+
+     <div class="container">
+
+        <div class="inputelement item1" id="item1">
+            <div class="item4elements">
+                <div></div>
+                <select id="BindingModeDD" class="BindingModeDD" value="MCK">
+                    <option value="MCK">Multi-Cycle Kinetic (MCK)</option>
+                    <option value="SCK">Single-Cycle Kinetic (SCK)</option>
+                </select>
+
+                <div class="centerdiv">
+                    <label class="switch">
+                        <input type="checkbox" id="SteadyStateSwitch">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+                <label>Steady State</label>
+            </div>
+        </div>
+
+        <div class="inputelement item2" id="item2">
+            <div class="item4elements">
+                <input type="checkbox" id="DissInBetweenCheck" class="DissInBetweenCheck" disabled="true">
+                <label for="DissociationInBetweenTimeInput">Intra-SCK-cycle Diss. Time: </label> 
+                <input type="number" value="120" min="1" max="5000" id="DissociationInBetweenTimeInput">
+                <label>[s]</label>
+            </div>
+        </div>
+
+        <div class="inputelement item3" id="item3">
+            <div class="item4elements">
+                <div></div>
+                <label>Dissociation Constant (K<sub>D</sub>): </label>
+                <input type="number" value="3.5" id="KDInput" disabled="true">
+                <select id="KDDD">
+                    <option value="M">M</option>
+                    <option value="mM">mM</option>
+                    <option value="µM">µM</option>
+                    <option value="nM" selected>nM</option>
+                    <option value="pM">pM</option>
+                    <option value="fM">fM</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="inputelement item4" id="item4">
+            <div class="item4elements">
+                <div></div>
+                <label>Association Rate Constant (k<sub>on</sub>): </label>
+                <div class="inputselectdiv">
+                    <input type="number" min="0.1" max="100" value="4.5" id="konInput">
+                    <select id="konDimensionDD">
+                        <option value="10E1">10E1</option>
+                        <option value="10E2">10E2</option>
+                        <option value="10E3">10E3</option>
+                        <option value="10E4" selected>10E4</option>
+                        <option value="10E5">10E5</option>
+                        <option value="10E6">10E6</option>
+                    </select>
+                </div>
+                <label>[M-1/s-1]</label>
+            </div>
+        </div>
+
+        <div class="inputelement item5" id="item5">
+            <div class="item4elements">
+                <div></div>
+                <label>Dissociation Rate Constant (k<sub>off</sub>): </label>
+                <div class="inputselectdiv">
+                    <input type="number" min="0.1" max="100" value="3.5" id="kdisInput">
+                    <select id="kdisDimensionDD">
+                        <option value="10E-1">10E-1</option>
+                        <option value="10E-2">10E-2</option>
+                        <option value="10E-3" selected>10E-3</option>
+                        <option value="10E-4">10E-4</option>
+                        <option value="10E-5">10E-5</option>
+                        <option value="10E-6">10E-6</option>
+                    </select>
+                </div>
+                <label>[s-1]</label>
+            </div>
+        </div>
+
+        <div class="inputelement item6" id="item6">
+            <div class="item4elements">
+                <div></div>
+                <label>Association Time: </label>
+                <input type="number" min="1" max="10000" value="600" id="AssociationTimeInput">
+                <label>[s]</label>
+            </div>
+        </div>
+
+        <div class="inputelement item7" id="item7">
+            <div class="item4elements">
+                <div></div>
+                <label>Dissociation Time: </label>
+                <input type="number" min="1" max="10000" value="600" id="DissociationTimeInput">
+                <label>[s]</label>
+            </div>
+        </div>
+
+        <div class="inputelement item8">
+            <div class="item4elements">
+                <div></div>
+                <label>Number of Association Events: </label>
+                <input type="number" min="1" max="15" value="7" id="CycleInput">
+            </div>
+        </div>
+
+        <div class="inputelement item9">
+            <div class="item4elements">
+                <div></div>
+                <label>Maximal Concentration: </label>
+                <div class="inputselectdiv">
+                    <input type="number" min="0.1" max="10000" value="100" id="ConcInput">
+                    <select id="ConcDimensionDD">
+                        <option value="M">M</option>
+                        <option value="mM">mM</option>
+                        <option value="µM">µM</option>
+                        <option value="nM" selected>nM</option>
+                        <option value="pM">pM</option>
+                        <option value="fM">fM</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="inputelement item10">
+            <div class="item4elements">
+                <div></div>
+                <label>Dilution Factor: </label>
+                <input type="number" min="1" max="100" value="2" id="DilutionInput">
+            </div>
+        </div>
+
+        <div class="inputelement item11">
+            <div class="item4elements">
+                <div></div>
+                <label>Half-life:</label>
+                <label id="HalflifeLabel" class="centerdiv"></label>
+                <select id="HalflifeDD">
+                    <option value="h">h</option>
+                    <option value="min" selected>min</option>
+                    <option value="s">s</option>
+                </select>
+            </div>
+
+            <div class="item4elements">
+                <div></div>
+                <label>t<sub>90 [at max. conc.]</sub>:</label>
+                <label id="ThetaLabel" class="centerdiv"></label>
+                <select id="ThetaDD">
+                    <option value="h">h</option>
+                    <option value="min" selected>min</option>
+                    <option value="s">s</option>
+                </select>
+            </div>
+
+            <div class="item4elements">
+                <div></div>
+                <label>Gibbs Energy (ΔG):</label>
+                <label id="FreeEnergyLabel" class="centerdiv">XXX</label>
+                <label>[kJ/mol]</label>
+            </div>
+
+            <div class="item4elements">
+                <div></div>
+                <label>θ<sub>eq [at max. conc.]</sub>:</label>
+                <label id="ThetaeqLabel" class="centerdiv">XXX</label>
+            </div>
+
+        </div>
+
+        <div class="inputelement item12">
+
+            <div class="item4elements">
+                <div></div>
+                <label>Custom Y-Axis Scale:</label>
+                <div class="centerdiv">
+                    <label class="switch">
+                        <input type="checkbox" id="YAxisScaleSwitch">
+                        <span class="slider sliderGrey round"></span>
+                    </label>
+                </div>
+                <input type="number" value="100" id="YaxisInput" min="1" max="100">
+            </div>
+
+            <div class="item4elements">
+                <div></div>
+                <label>Custom Font Size:</label>
+                <div class="centerdiv">
+                    <label class="switch">
+                        <input type="checkbox" id="FontSizeSwitch">
+                        <span class="slider sliderGrey round"></span>
+                    </label>
+                </div>
+                <input type="number" value="14" id="FontSizeInput" min="0" max="100">
+            </div>
+
+            <div class="item4elements">
+                <div></div>
+                <label>Custom Title:</label>
+                <div class="centerdiv">
+                    <label class="switch">
+                        <input type="checkbox" id="TitleSwitch">
+                        <span class="slider sliderGrey round"></span>
+                    </label>
+                </div>
+                <input id="TitleInput" value="My SPR Simulation">
+            </div>
+
+            <button class="savebutton" id="savebutton">Save Plot Image</button>
+
+        </div>
+
+        <div class="canvas-container" id="canvas-container">
+            <canvas id="Sensorgram" ></canvas>            
+            <!--<label style="font-size: 10px;">Using <a href="https://www.chartjs.org">Chart.js v2.9.4</a>, released under the under the MIT License</label>-->
+        </div>
+
+     </div>
+    
+</body>
+    <script src="../dist/Chartjs2.9.4.js"></script>
+    <script src="../dist/SPR_Simulator.js"></script>
+    <script src="../dist/Sensorgram.js"></script>
+    <script src="../dist/UI.js"></script>
+    <script src="../dist/Main.js"></script>
+</html>

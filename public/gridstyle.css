@@ -1,0 +1,119 @@
+/*************/
+/*Main Grid*/
+/*************/
+
+.container
+{
+    display: grid;
+    grid-template-rows: repeat(10, auto); /*, calc(90VH/10)));*/
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.item1
+{
+    grid-area: 1 / 1 / 2 / 2;
+}
+
+.item2
+{
+    grid-area: 2 / 1 / 3 / 2;
+}
+
+.item3
+{
+    grid-area: 3 / 1 / 4 / 2;
+}
+
+.item4
+{
+    grid-area: 4 / 1 / 5 / 2;
+}
+
+.item5
+{
+    grid-area: 5 / 1 / 6 / 2;
+}
+
+.item6
+{
+    grid-area: 6 / 1 / 7 / 2;
+}
+
+.item7
+{
+    grid-area: 7 / 1 / 8 / 2;
+}
+
+.item8
+{
+    grid-area: 8 / 1 / 9 / 2;
+}
+
+.item9
+{
+    grid-area: 9 / 1 / 10 / 2;
+}
+
+.item10
+{
+    grid-area: 10 / 1 / 11 / 2;
+}
+
+.item11
+{
+    grid-area: 8 / 2 / 11 / 3;
+}
+
+.item12
+{
+    grid-area: 8 / 3 / 11 / 4;
+}
+
+.canvas-container
+{
+    grid-area: 1 / 2 / 8 / 4;
+}
+
+/*************/
+/* Subgrids */
+/*************/
+
+.item4elements
+{
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: 5% 20% 35% 20% 5%;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    gap: 10px;
+}
+
+input
+{
+    max-width: 100%
+}
+
+.item11
+{
+    display: grid;
+    grid-template-rows: repeat(4, 1fr);
+    grid-template-columns: 1fr;
+}
+
+.item12
+{
+    display: grid;
+    grid-template-rows: repeat(4, 1fr);
+    grid-template-columns: 1fr;
+}
+
+.item11 .item4elements
+{
+    gap: 10px;
+}
+
+.item12 .item4elements
+{
+    gap: 10px;
+}
